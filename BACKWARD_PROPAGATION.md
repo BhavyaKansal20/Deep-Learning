@@ -322,5 +322,5 @@ UPDATED  └──────────────┘      └────�
 
 ---
 
-*📝 Notes compiled for NIELIT × IIT Ropar AI/ML Training Program — Deep Learning Module*
-*🚀 Part of the AAgni AI Knowledge Base — Built in Patiala, Made in India*
+*📝 These Notes are Written and compiled by Mr. Bhavya Kansal for Understanding Deep Learning from Scratch*
+*🚀 Part of IITR and NIELIT Internship Journey  — Built in Patiala, Made in India 🇮🇳*

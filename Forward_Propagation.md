@@ -203,4 +203,5 @@ Raw Input (X)
 
 ---
 
-*📘 Part of the Deep Learning Fundamentals Series — Neural Networks from Scratch*
+*📝 These Notes are Written and compiled by Mr. Bhavya Kansal for Understanding Deep Learning from Scratch*
+*🚀 Part of IITR and NIELIT Internship Journey  — Built in Patiala, Made in India 🇮🇳*

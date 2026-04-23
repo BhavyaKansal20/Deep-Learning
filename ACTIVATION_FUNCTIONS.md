@@ -10,7 +10,7 @@ An **Activation Function** decides whether a neuron should be activated or not �
 
 ```
 INPUT ──► WEIGHTED SUM ──► ACTIVATION FUNCTION ──► OUTPUT
-               (Σ wᵢxᵢ + b)         f(a)
+               (Σ wᵢxᵢ + b)           f(a)
 ```
 
 ---
@@ -19,8 +19,8 @@ INPUT ──► WEIGHTED SUM ──► ACTIVATION FUNCTION ──► OUTPUT
 
 | # | Function | Formula | Range | Best Used In |
 |:---:|---|---|:---:|---|
-| 1 | **Linear** | $f(x) = x$ | $(-\infty, +\infty)$ | Output (Regression) |
-| 2 | **Sigmoid** | $\frac{1}{1+e^{-x}}$ | $(0, 1)$ | Output (Binary Classif.) |
+| 1 | **Linear** | $f(x) = x$ | $(-\infty, +\infty)$ | Output Layer (Regression) |
+| 2 | **Sigmoid** | $\frac{1}{1+e^{-x}}$ | $(0, 1)$ | Output Layer (Binary Classif.) |
 | 3 | **Tanh** | $\frac{e^x - e^{-x}}{e^x + e^{-x}}$ | $(-1, +1)$ | Hidden Layers |
 | 4 | **ReLU** | $\max(0, x)$ | $[0, +\infty)$ | Hidden Layers (CNN/DNN) |
 | 5 | **Leaky ReLU** | $\max(0.01x, x)$ | $(-\infty, +\infty)$ | Deep Networks |
@@ -37,9 +37,9 @@ $$\boxed{f(x) = x}$$
 
 The output is the **same as the input**. The neuron doesn't transform the data — it just passes it forward as-is.
 
-![Linear Activation Function](https://media.geeksforgeeks.org/wp-content/uploads/20190901213212/Screenshot-2019-09-01-at-9.32.01-PM.png)
+![Linear Activation Function Graph](https://media.geeksforgeeks.org/wp-content/uploads/20241029115212560858/Linear-Activation-Function.png)
 
-*Figure 1 — Linear activation: a straight diagonal line with slope = 1*
+*Figure 1 — Linear Activation: output = input, a straight diagonal line with no transformation*
 
 ---
 
@@ -48,8 +48,7 @@ The output is the **same as the input**. The neuron doesn't transform the data �
 - **Regression tasks** — predicting continuous values like salary, house price, temperature, etc.
 - **Output layer** of a neural network when we don't want output restricted to 0–1 (sigmoid) or −1 to +1 (tanh)
 
-> **Example:** Predicting house prices — you want outputs like ₹50,00,000 or ₹80,00,000.
-> A sigmoid would squeeze everything between 0 and 1, which makes no sense here. ✅
+> **Example:** Predicting house prices — you want outputs like ₹50,00,000 or ₹80,00,000. A sigmoid would squeeze everything between 0 and 1, which makes no sense here. ✅
 
 ---
 
@@ -73,9 +72,9 @@ $$\boxed{f(x) = \frac{1}{1 + e^{-x}}}$$
 
 No matter how large or small the input — **output always stays between 0 and 1**.
 
-![Sigmoid Activation Function](https://media.geeksforgeeks.org/wp-content/uploads/20190901213157/Screenshot-2019-09-01-at-9.31.45-PM.png)
+![Sigmoid Activation Function Graph](https://media.geeksforgeeks.org/wp-content/uploads/20241029120537926197/Sigmoid-Activation-Function.png)
 
-*Figure 2 — Sigmoid (blue) and its derivative (red): classic S-curve between 0 and 1*
+*Figure 2 — Sigmoid: smooth S-curve always outputting between 0 and 1*
 
 ---
 
@@ -88,12 +87,12 @@ No matter how large or small the input — **output always stays between 0 and 1
 
 ---
 
-### ⚠️ Limitations
+### ✅ Advantages vs ⚠️ Limitations
 
-| Problem | Explanation |
+| ✅ Advantages | ⚠️ Limitations |
 |---|---|
-| **Vanishing Gradient** | For very large or very small inputs, gradient becomes almost 0 — slows learning badly |
-| **Not Preferred in Hidden Layers** | ReLU is preferred in hidden layers nowadays for this reason |
+| Output is always a clean probability (0 to 1) | **Vanishing Gradient** — for large/small inputs, gradient → 0, slowing learning |
+| Smooth and continuously differentiable | **Not preferred in hidden layers** — ReLU is preferred nowadays |
 
 ---
 ---
@@ -102,13 +101,11 @@ No matter how large or small the input — **output always stays between 0 and 1
 
 > *Like sigmoid, but centered at 0 — squeezes values into −1 to +1.*
 
-The **tanh** (hyperbolic tangent) is another squashing function. Instead of 0 to 1, it squeezes values into **−1 to +1**.
-
 $$\boxed{f(x) = \tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}}$$
 
-![Tanh Activation Function](https://media.geeksforgeeks.org/wp-content/uploads/20190901215947/Screenshot-2019-09-01-at-9.59.37-PM.png)
+![Tanh Activation Function Graph](https://media.geeksforgeeks.org/wp-content/uploads/20241029120618881107/Tanh-Activation-Function.png)
 
-*Figure 3 — Tanh activation: S-curve centered at 0, ranging from −1 to +1*
+*Figure 3 — Tanh: S-curve centered at 0, ranging from −1 to +1*
 
 ---
 
@@ -123,8 +120,8 @@ $$\boxed{f(x) = \tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}}$$
 
 | ✅ Advantages | ⚠️ Limitations |
 |---|---|
-| Outputs are **zero-centred** (good for optimization) | Still suffers from **vanishing gradient** when inputs are very large/negative |
-| **Stronger gradients** than sigmoid in range (−1, 1) → learning can be faster | That's why ReLU is more common in hidden layers in modern deep learning |
+| **Zero-centred** output — better for gradient optimization | Still suffers from **vanishing gradient** for very large/small inputs |
+| **Stronger gradients** than sigmoid in range (−1, 1) → faster learning | ReLU is more common in hidden layers in modern deep learning |
 
 ---
 ---
@@ -140,22 +137,20 @@ $$\boxed{f(x) = \max(0, x)}$$
 **That means:**
 
 ```
-If input x < 0  →  output = 0
-If input x > 0  →  output = x
+If input x < 0  →  output = 0       (blocked)
+If input x > 0  →  output = x       (passed as-is)
 ```
 
-It **passes positive values as-is** and **blocks negative values** by turning them to 0.
+![ReLU Activation Function Graph](https://media.geeksforgeeks.org/wp-content/uploads/20241029120652402777/relu-activation-function.png)
 
-![ReLU Activation Function](https://media.geeksforgeeks.org/wp-content/uploads/20190901213256/Screenshot-2019-09-01-at-9.32.21-PM.png)
-
-*Figure 4 — ReLU: flat at 0 for negatives, linear for positives — the "hockey stick" curve*
+*Figure 4 — ReLU: flat zero for negatives, linear for positives — the famous "hockey stick" curve*
 
 ---
 
 ### 📌 Where Do We Use It?
 
 - **Hidden layers** of almost all modern deep neural networks
-- Works really well in **CNNs** (Convolutional Neural Networks), image recognition, NLP, and many more tasks
+- Works really well in **CNNs**, image recognition, NLP, and many more tasks
 
 ---
 
@@ -163,8 +158,8 @@ It **passes positive values as-is** and **blocks negative values** by turning th
 
 | ✅ Advantages | ⚠️ Limitations |
 |---|---|
-| Very **fast and simple** to compute | **Dying ReLU problem** — neurons can get stuck at 0 forever if weights update badly |
-| Helps **avoid vanishing gradient** problem (better than sigmoid/tanh) | **Not smooth at 0** — not differentiable there, but still works fine in practice |
+| Very **fast and simple** to compute | **Dying ReLU problem** — neurons can get stuck at 0 forever |
+| Helps **avoid vanishing gradient** (better than sigmoid/tanh) | **Not smooth at 0** — not differentiable there (but fine in practice) |
 | Makes training **deep networks much faster** | — |
 
 ---
@@ -174,69 +169,64 @@ It **passes positive values as-is** and **blocks negative values** by turning th
 
 > *ReLU with a small fix — neurons never completely die.*
 
-It's just like **ReLU, but with a small twist**. In ReLU, whenever input is negative → output is 0.
-
-**Leaky ReLU's fix:** Instead of giving 0 for negative inputs, it gives a **tiny negative value** (like `0.01 × input`). This way, the neuron is **never completely dead**.
-
 $$\boxed{f(x) = \begin{cases} x & \text{if } x > 0 \\ 0.01x & \text{if } x \leq 0 \end{cases}}$$
 
-![Leaky ReLU vs ReLU](https://media.geeksforgeeks.org/wp-content/uploads/20190901213559/Screenshot-2019-09-01-at-9.35.54-PM.png)
+Instead of giving 0 for negative inputs, it gives a **tiny negative value** (`0.01 × input`). The neuron is **never completely dead**.
 
-*Figure 5 — Leaky ReLU (orange) vs ReLU (blue): small negative slope instead of flat zero*
+![Leaky ReLU vs ReLU Graph](https://media.geeksforgeeks.org/wp-content/uploads/20251008111001414919/Leaky_relu.png)
+
+*Figure 5 — Leaky ReLU (orange) vs ReLU (blue): small negative slope instead of flat zero for x < 0*
 
 ---
 
 ### 📌 Advantages of Leaky ReLU
 
 **🔧 Fixes "Dead Neuron" Problem**
-- In normal ReLU, if inputs go negative, output is always 0 — sometimes the neuron stops learning permanently (dead neuron)
-- Leaky ReLU solves this by allowing a **small negative slope**, so neurons still update weights
+In normal ReLU, if inputs go negative, the neuron stops learning permanently (dead neuron). Leaky ReLU allows a **small negative slope** — neurons still update weights.
 
 **⚡ Computationally Simple**
-- Just like ReLU, the function is very easy to compute (no heavy math like exponentials in Sigmoid/Tanh)
+No heavy math like exponentials in Sigmoid/Tanh — just a tiny slope for negatives.
 
 **📈 Better Gradient Flow**
-- Since even negative inputs have a small gradient (e.g., 0.01), the network can **continue learning**, reducing the vanishing gradient issue
+Even negative inputs have a small gradient (0.01), so the network can **continue learning** — reducing vanishing gradient.
 
 **🏗️ Works Well in Deep Networks**
-- Especially useful in deep neural networks where ReLU may suffer from many dead neurons
+Especially useful where ReLU may suffer from many dead neurons.
 
 ---
 
 ### ⚠️ Limitations
 
-- Small negative slope may **bias results**
-- Slope value **needs tuning** — the `0.01` is a hyperparameter
+| Problem | Detail |
+|---|---|
+| Biased results | Small negative slope may bias outputs |
+| Hyperparameter | The `0.01` slope value needs manual tuning |
 
 ---
 ---
 
 ## 6️⃣ PReLU Activation Function
 
-> *Leaky ReLU, but smarter — the slope is learned, not fixed.*
+> *Leaky ReLU, but smarter — the slope α is learned by the model, not fixed by us.*
 
-**PReLU** (Parametric Rectified Linear Unit) is an **improved version of Leaky ReLU**:
-
-- In **Leaky ReLU** → slope is fixed by us (e.g., `0.01`)
-- In **PReLU** → slope `α` is **learned automatically** by the model during training → more flexible and adaptive
+**PReLU** (Parametric Rectified Linear Unit) — an improved version of Leaky ReLU:
 
 $$\boxed{f(x) = \begin{cases} x & \text{if } x > 0 \\ \alpha x & \text{if } x \leq 0 \end{cases}}$$
 
-*where **α** is a trainable parameter*
+*where **α** is a **trainable parameter** — learned automatically during backpropagation*
 
-![PReLU vs Leaky ReLU vs ReLU](https://media.geeksforgeeks.org/wp-content/uploads/20190901215230/Screenshot-2019-09-01-at-9.52.20-PM.png)
+![PReLU Activation Function](https://media.geeksforgeeks.org/wp-content/uploads/20250528125143444422/Activation-functions-in-Neural-Networks.webp)
 
-*Figure 6 — Comparison of ReLU, Leaky ReLU, and PReLU — slope α is adaptive in PReLU*
+*Figure 6 — PReLU: adaptive slope α is learned by the model — more flexible than Leaky ReLU*
 
 ---
 
 ### 🧠 Intuition (Easy Way)
 
 ```
-ReLU:       Negative values are KILLED        (output = 0)
-Leaky ReLU: Negative values get a tiny leak   (e.g., 0.01x)
-PReLU:      Instead of fixing that leak, the model says
-            "I'll learn the best leak slope myself." 🤖
+ReLU:        Negative values → KILLED         (output = 0)
+Leaky ReLU:  Negative values → tiny leak      (0.01x, fixed by us)
+PReLU:       "I'll learn the best leak slope myself." 🤖  (α is trainable)
 ```
 
 ---
@@ -245,42 +235,36 @@ PReLU:      Instead of fixing that leak, the model says
 
 | ✅ Advantages | ⚠️ Limitations |
 |---|---|
-| Fixes dead neurons (like Leaky ReLU) | Extra parameters — slope `α` adds more trainable values |
+| Fixes dead neurons (like Leaky ReLU) | Extra parameters — α adds trainable values |
 | **Adaptive** — slope is learned, not fixed | Risk of **overfitting** if dataset is small |
-| Better accuracy — often improves CNNs and deep networks | Slightly more complex than plain ReLU |
+| Better accuracy — often improves CNNs | Slightly more complex than plain ReLU |
 
 ---
 ---
 
 ## 7️⃣ Swish Activation Function
 
-> *Smooth, non-linear, and introduced by Google — often outperforms ReLU.*
+> *Smooth, non-linear, and introduced by Google — often outperforms ReLU in deep networks.*
 
-**Swish** is a smooth, non-linear activation function introduced by **Google researchers**.
+$$\boxed{f(x) = x \cdot \sigma(x) = \frac{x}{1 + e^{-x}}}$$
 
-$$\boxed{f(x) = x \cdot \sigma(x)}$$
+Where $\sigma(x)$ is the sigmoid function — so: **Swish = x × Sigmoid(x)**
 
-Where $\sigma(x)$ is the **sigmoid function**. So basically:
+![Swish Activation Function Graph](https://media.geeksforgeeks.org/wp-content/uploads/20231004125429/Swish.jpg)
 
-$$\text{Swish} = x \times \text{Sigmoid}(x)$$
-
-![Swish Activation Function](https://media.geeksforgeeks.org/wp-content/uploads/20190901215918/Screenshot-2019-09-01-at-9.59.13-PM.png)
-
-*Figure 7 — Swish (blue), its first derivative, and second derivative — smooth curve around zero*
+*Figure 7 — Swish for various β values: smooth non-monotonic curve — linear at β→0, approaches ReLU at β→∞*
 
 ---
 
 ### 🧠 Intuition (Easy Way)
 
-> Think of it as **ReLU but smoother.**
-
 ```
-For large positive inputs  →  output ≈ input (like ReLU) ✅
-For large negative inputs  →  output is small but NOT strictly zero (like Leaky ReLU) ✅
-Around zero               →  the curve is SMOOTH, not sharp like ReLU ✅
+For large positive inputs   →  output ≈ input     (like ReLU) ✅
+For large negative inputs   →  output is small     (not strictly 0, like Leaky ReLU) ✅
+Around zero                 →  curve is SMOOTH     (not sharp like ReLU) ✅
 ```
 
-This smoothness often makes training deep networks **easier and more stable**.
+> This smoothness makes training deep networks **easier and more stable**.
 
 ---
 
@@ -288,32 +272,11 @@ This smoothness often makes training deep networks **easier and more stable**.
 
 | ✅ Advantages | ⚠️ Limitations |
 |---|---|
-| **Smooth curve** → better gradient flow, avoids sharp jumps like ReLU | **More computation** needed (requires sigmoid) |
-| **Non-monotonic** → can adapt better to complex patterns | Not always better than ReLU (depends on problem) |
-| Works well in deep networks — often **improves accuracy over ReLU** | Slight risk of **slower training** compared to simple ReLU |
+| **Smooth curve** → better gradient flow, no sharp jumps | **More computation** (requires sigmoid internally) |
+| **Non-monotonic** → can adapt to complex patterns | Not always better than ReLU (problem-dependent) |
+| Often **improves accuracy over ReLU** in deep nets | Slight risk of slower training vs simple ReLU |
 
 ---
----
-
-## 🔮 Master Comparison — All 7 Functions
-
-```
-OUTPUT
-  │
-1 │         ····················· Sigmoid
-  │        ·
-  │       · ╱──────────────────── ReLU / Linear (x > 0)
-  │      ·╱
-0 │─────╳────────────────────────── x
-  │   ╱· ╲
-  │  ╱  ·  ╲──────────────────── Leaky ReLU (slight slope for x < 0)
-  │ ╱    ···
--1│       ····················· Tanh
-  │
-  └──────────────────────────────────────► INPUT x
-        negative        positive
-```
-
 ---
 
 ## 📐 All Formulas — Quick Reference Card
@@ -339,24 +302,24 @@ $$\boxed{\text{Swish:} \quad f(x) = x \cdot \sigma(x) = \frac{x}{1+e^{-x}}}$$
 ```
 Is this the OUTPUT LAYER?
 │
-├── YES → Regression?      ──► Linear
-│         Binary Classif.? ──► Sigmoid
-│         Multi-class?     ──► Softmax
+├── YES → Regression?       ──► Linear
+│         Binary Classif.?  ──► Sigmoid
+│         Multi-class?      ──► Softmax
 │
 └── NO (Hidden Layer)
     │
-    ├── Start with          ──► ReLU  (fast, simple, works great)
+    ├── Start with           ──► ReLU        (fast, simple, works great)
     │
-    ├── Dead Neurons?       ──► Leaky ReLU or PReLU
+    ├── Dead Neurons?        ──► Leaky ReLU  (0.01 slope for x < 0)
     │
-    ├── Need adaptability?  ──► PReLU (α is learned)
+    ├── Need adaptability?   ──► PReLU       (α is learned automatically)
     │
-    └── Want state-of-art?  ──► Swish (Google's choice for deep nets)
+    └── Want state-of-art?   ──► Swish       (Google's choice for deep nets)
 ```
 
 ---
 
-## ⚠️ The Vanishing Gradient Problem — Visual Summary
+## ⚠️ Vanishing Gradient — Quick Verdict
 
 | Activation | Gradient Behavior | Verdict |
 |---|---|:---:|
@@ -369,5 +332,5 @@ Is this the OUTPUT LAYER?
 
 ---
 
-*📝 Notes compiled for NIELIT × IIT Ropar AI/ML Training Program — Deep Learning Module*
-*🚀 Part of the AAgni AI Knowledge Base — Built in Patiala, Made in India 🇮🇳*
+*📝 These Notes are Written and compiled by Mr. Bhavya Kansal for Understanding Deep Learning from Scratch*
+*🚀 Part of IITR and NIELIT Internship Journey  — Built in Patiala, Made in India 🇮🇳*
