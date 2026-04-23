@@ -203,5 +203,5 @@ Raw Input (X)
 
 ---
 
-*📝 These Notes are Written and compiled by Mr. Bhavya Kansal for Understanding Deep Learning from Scratch*
+*📝 These Notes are Written and compiled by Mr. Bhavya Kansal for Understanding Deep Learning from Scratch* <br> 
 *🚀 Part of IITR and NIELIT Internship Journey  — Built in Patiala, Made in India 🇮🇳*
