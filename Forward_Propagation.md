@@ -32,13 +32,9 @@ This operation forms the backbone of how neural networks **learn patterns** and 
 
 ## 1️⃣ Input Layer
 
-- Receives raw data
-- Each feature = one neuron
-- Data is often:
-  - Normalized
-  - Standardized
-
-> 🎯 Goal: Prepare stable and efficient input
+- Receives raw data  
+- Each feature = one neuron  
+- Data is often normalized or standardized  
 
 ---
 
@@ -46,37 +42,37 @@ This operation forms the backbone of how neural networks **learn patterns** and 
 
 This is where actual intelligence happens.
 
-Each neuron computes:
+### 🔹 Step 1: Weighted Sum
 
-\[
+$$
 Z = W \times X + b
-\]
+$$
 
 Where:
 - **W** → weights  
 - **X** → input vector  
 - **b** → bias  
 
-Then activation is applied:
+---
 
-\[
+### 🔹 Step 2: Activation
+
+$$
 A = \sigma(Z)
-\]
+$$
 
 Common activation functions:
-- ReLU
-- Sigmoid
-- Tanh
+- ReLU  
+- Sigmoid  
+- Tanh  
 
-> 🔥 This introduces **non-linearity**, allowing complex learning.
+> 🔥 This introduces non-linearity → allows complex learning.
 
 ---
 
 ## 3️⃣ Output Layer
 
 Final prediction is generated.
-
-Activation depends on task:
 
 | Task Type | Activation |
 |----------|-----------|
@@ -88,8 +84,8 @@ Activation depends on task:
 
 ## 4️⃣ Prediction
 
-- Output is generated using current weights
-- Compared with actual value using **Loss Function**
+- Output is generated using current weights  
+- Compared with actual value using **Loss Function**  
 - Error is passed to **Backpropagation**
 
 ---
@@ -104,37 +100,40 @@ Activation depends on task:
 
 ## 🔹 Layer 1 (First Hidden Layer)
 
-\[
-A^{[1]} = \sigma(W^{[1]} X + b^{[1]})
-\]
+$$
+A^{[1]} = \sigma \left( W^{[1]} X + b^{[1]} \right)
+$$
 
 ---
 
 ## 🔹 Layer n (General Form)
 
-\[
-A^{[n]} = \sigma(W^{[n]} A^{[n-1]} + b^{[n]})
-\]
+$$
+A^{[n]} = \sigma \left( W^{[n]} A^{[n-1]} + b^{[n]} \right)
+$$
 
 ---
 
 ## 🔹 Output Layer
 
-\[
-Y = \sigma(W^{[3]} A^{[2]} + b^{[3]})
-\]
+$$
+Y = \sigma \left( W^{[3]} A^{[2]} + b^{[3]} \right)
+$$
 
 ---
 
 ## 🔥 Complete Forward Propagation Equation
 
-\[
-A^{[3]} = \sigma \Big( 
-\sigma \big( 
-\sigma(XW^{[1]} + b^{[1]}) W^{[2]} + b^{[2]} 
-\big) W^{[3]} + b^{[3]} 
-\Big)
-\]
+$$
+A^{[3]} =
+\sigma \left(
+    \sigma \left(
+        \sigma \left( X W^{[1]} + b^{[1]} \right)
+        W^{[2]} + b^{[2]}
+    \right)
+    W^{[3]} + b^{[3]}
+\right)
+$$
 
 ---
 
@@ -150,20 +149,18 @@ A^{[3]} = \sigma \Big(
 
 Forward propagation is not just "passing data" — it’s a **controlled transformation pipeline** that encodes raw input into meaningful representations.
 
-If this step is weak:
-➡️ No matter how good backprop is, model fails.
+If this step is weak:  
+➡️ Backpropagation cannot fix it.
 
 ---
 
-# ⚠️ Brutal Reality Check
+# ⚠️ Reality Check
 
-Most beginners memorize formulas — useless.
+Memorizing formulas = useless.
 
 What actually matters:
 - Understanding **data flow**
 - Knowing **why activation matters**
-- Recognizing **how depth increases representation power**
-
-If you don't deeply get this, you won’t build strong models — only copy-paste projects.
+- Recognizing **representation power of depth**
 
 ---
