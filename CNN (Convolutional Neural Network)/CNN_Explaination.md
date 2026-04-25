@@ -899,13 +899,5 @@ Softmax:    e^zk / Σ e^zj       → probability distribution
 
 ---
 
-**Made with 💻 + ☕ by Mr. Kansal**
-*NIELIT × IIT Ropar | AI/ML Researcher | Founder @ Multimodex AI*
-
-![Bhavya Kansal](https://img.shields.io/badge/bhavyakansal.dev-Portfolio-blueviolet?style=flat-square)
-![GitHub](https://img.shields.io/badge/GitHub-BhavyaKansal20-black?style=flat-square&logo=github)
-![Multimodex AI](https://img.shields.io/badge/Multimodex-AI%20Startup-orange?style=flat-square)
-
-*"Built in Patiala. Dreaming at the speed of thought."* ⚡
-
-</div>
+**📝 These Notes are Written and compiled by Mr. Bhavya Kansal for Understanding Deep Learning from Scratch** <br> 
+**🚀 Part of IITR and NIELIT Internship Journey  — Built in Patiala, Made in India 🇮🇳**
